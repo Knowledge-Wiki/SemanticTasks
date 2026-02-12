@@ -3,10 +3,11 @@
 		"authors": [
 			"EugeneZelenko",
 			"Jim-by",
-			"Red Winged Duck"
+			"Red Winged Duck",
+			"Ucukor"
 		]
 	},
-	"semantictasks-desc": "Дасылае паведамленьні электроннай поштай пра даданьне альбо абнаўленьне заданьняў",
+	"semantictasks-desc": "Дасылае абвесткі электроннай поштай пра даданьне альбо абнаўленьне заданьняў",
 	"semantictasks-newtask": "Новае заданьне:",
 	"semantictasks-taskassigned": "Прызначанае заданьне:",
 	"semantictasks-taskunassigned": "Задача зьнятая:",
