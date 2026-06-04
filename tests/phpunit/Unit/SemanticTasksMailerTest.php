@@ -6,14 +6,14 @@ use MediaWiki\Diff\ComplexityException;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Storage\RevisionSlotsUpdate;
+use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 use MWException;
 use PHPUnit\Framework\TestResult;
 use ST\Assignees;
 use ST\SemanticTasksMailer;
 use ST\UserMailer;
 use TextContent;
-use Title;
-use User;
 use WikiPage;
 
 /**
@@ -113,7 +113,7 @@ class SemanticTasksMailerTest extends \MediaWikiIntegrationTestCase {
 		foreach ( $strings as $string ) {
 			$content = \ContentHandler::makeContent( $string, $title );
 
-			$performer = $context->getUser();
+			$performer = User::newSystemUser( 'Maintenance script', [ 'steal' => true ] );
 			$summary = CommentStoreComment::newUnsavedComment( trim( 'edit page' ) );
 
 			$slotsUpdate = new RevisionSlotsUpdate();
@@ -178,7 +178,7 @@ class SemanticTasksMailerTest extends \MediaWikiIntegrationTestCase {
 		$title = Title::newFromText( 'Some Random Page', $namespace );
 		$page = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
 		$content = \ContentHandler::makeContent( 'this is some edit', $title );
-		$performer = \RequestContext::getMain()->getUser();
+		$performer = User::newSystemUser( 'Maintenance script', [ 'steal' => true ] );
 		$summary = CommentStoreComment::newUnsavedComment( trim( 'edit page' ) );
 		$slotsUpdate = new RevisionSlotsUpdate();
 		$slotsUpdate->modifyContent( SlotRecord::MAIN, $content );
