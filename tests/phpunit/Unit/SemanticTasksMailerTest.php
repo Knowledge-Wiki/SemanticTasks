@@ -149,7 +149,7 @@ class SemanticTasksMailerTest extends \MediaWikiIntegrationTestCase {
 	 * @covers \ST\SemanticTasksMailer::mailAssigneesUpdatedTask
 	 * @throws MWException
 	 */
-	public function testMailAssigneesUpdatedTaskTrueOnMinorEdit() {
+	public function testMailAssigneesUpdatedTaskNullOnMinorEdit() {
 		$assignees = new Assignees();
 		$title = $this->createMock( Title::class );
 		$title->method( 'canExist' )->willReturn( true );
@@ -171,7 +171,7 @@ class SemanticTasksMailerTest extends \MediaWikiIntegrationTestCase {
 
 		}
 
-		$this->assertTrue( $returnValue );
+		$this->assertNull( $returnValue );
 	}
 
 	public function testGetAssignedUsersFromParserOutput() {
