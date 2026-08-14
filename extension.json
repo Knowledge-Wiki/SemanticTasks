@@ -1,6 +1,6 @@
 {
 	"name": "SemanticTasks",
-	"version": "3.0.0-alpha",
+	"version": "3.1.0",
 	"author": [
 		"Steren Giannini",
 		"Ryan Lane",
@@ -34,6 +34,12 @@
 	},
 	"config_prefix": "stg",
 	"config": {
+		"NotifyOnDeleteTaskArticle": {
+			"value": false
+		},
+		"NotifyOnTalkPageEditOfTaskArticle": {
+			"value": true
+		},
 		"PropertyAssignedTo": {
 			"value": "Assigned to"
 		},
