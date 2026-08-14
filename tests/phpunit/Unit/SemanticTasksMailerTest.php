@@ -10,7 +10,6 @@ use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 use MWException;
 use PHPUnit\Framework\TestResult;
-use SemanticTasks;
 use ST\Assignees;
 use ST\SemanticTasksMailer;
 use ST\UserMailer;
@@ -85,7 +84,7 @@ class SemanticTasksMailerTest extends \MediaWikiIntegrationTestCase {
 		$text = '';
 		$title = $this->createMock( Title::class );
 		$user = new \User();
-		$status = SemanticTasks::NEWTASK;
+		$status = SemanticTasksMailer::NEWTASK;
 
 		$userMailerMock->expects( $this->once() )
 			->method( 'send' )
