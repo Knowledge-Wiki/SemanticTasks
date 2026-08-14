@@ -132,7 +132,7 @@ class SemanticTasksMailerTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	/**
-	 * @covers \ST\Assignees::saveAssignees
+	 * @covers \ST\Assignees::saveAssigneesAndStatus
 	 */
 	public function testSaveAssignees() {
 		$title = $this->createMock( Title::class );
@@ -140,7 +140,7 @@ class SemanticTasksMailerTest extends \MediaWikiIntegrationTestCase {
 		$title->method( 'getWikiId' )->willReturn( false );
 		$article = new WikiPage( $title );
 		$assignees = new Assignees();
-		$assignees->saveAssignees( $article );
+		$assignees->saveAssigneesAndStatus( $article );
 	}
 
 	/** @todo: add more tests or asserts */
