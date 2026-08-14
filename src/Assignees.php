@@ -2,7 +2,6 @@
 
 namespace ST;
 
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 use ParserOutput;
@@ -58,8 +57,8 @@ class Assignees {
 		$article = SemanticTasks::getEffectiveArticleFromPage( $wikiPage );
 
 		$this->saveAssigneesAndStatus( $article );
-	 	$this->saveCopies( $article );
-	 	$this->saveGroups( $article );
+		$this->saveCopies( $article );
+		$this->saveGroups( $article );
 
 		return true;
 	}
