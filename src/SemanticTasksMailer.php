@@ -75,7 +75,7 @@ class SemanticTasksMailer {
 			if ( !$stgNotifyOnTalkPageEditOfTaskArticle ) {
 				return;
 			}
-	
+
 			$article = SemanticTasks::getEffectiveArticleFromPage( $article );
 
 			if ( ( $flags & EDIT_NEW ) ) {
@@ -107,7 +107,6 @@ class SemanticTasksMailer {
 		Assignees $assignees,
 		$revision
 	) {
-	
 		$text = $content instanceof TextContent ? $content->getText() : '';
 		$title = $article->getTitle();
 
@@ -156,7 +155,7 @@ class SemanticTasksMailer {
 		if ( count( $newAssignees ) ) {
 			$mailToNewAssignees = Assignees::getAssigneeAddresses( $newAssignees );
 			self::mailNotification( $mailToNewAssignees, $text, $title, $user, self::ASSIGNED );
-	
+
 			$notifiedUsers = array_map( static function ( $value ) {
 				return $value->name;
 			}, $mailToNewAssignees );
