@@ -140,7 +140,9 @@ class SemanticTasksMailerTest extends \MediaWikiIntegrationTestCase {
 		$title->method( 'getWikiId' )->willReturn( false );
 		$article = new WikiPage( $title );
 		$assignees = new Assignees();
-		$assignees->saveAssigneesAndStatus( $article );
+		$result = $assignees->saveAssigneesAndStatus( $article );
+
+		$this->assertTrue( $result );
 	}
 
 	/** @todo: add more tests or asserts */
