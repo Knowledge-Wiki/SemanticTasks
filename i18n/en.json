@@ -21,5 +21,14 @@
 	"semantictasks-reminder": "Reminder:",
 	"semantictasks-reminder-message2": "Just to remind you that the task \"$1\" ends in $2 {{PLURAL:$2|day|days}}.\n\n$3",
 	"semantictasks-text-message": "Here is the task description:",
-	"semantictasks-diff-message": "Here are the differences:"
+	"semantictasks-diff-message": "Here are the differences:",
+
+	"semantictasks-task-talk-page-created": "Talk page of task article has been created",
+	"semantictasks-task-talk-page-created-message": "Talk page related to task article \"$1\" has been created",
+	"semantictasks-task-talk-page-edited": "Talk page of task article has been edited",
+	"semantictasks-task-talk-page-edited-message": "Talk page related to task article \"$1\" has been edited",
+	"semantictasks-task-article-deleted": "Article with assigned tasks deleted",
+	"semantictasks-task-article-deleted-message": "The article \"$1\" with assigned tasks has been deleted.",
+	"semantictasks-task-talk-article-deleted": "Talk page of article with assigned tasks deleted",
+	"semantictasks-task-article-talk-deleted-message": "The talk page of the article \"$1\" with assigned tasks has been deleted."
 }
