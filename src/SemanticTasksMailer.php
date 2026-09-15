@@ -444,7 +444,8 @@ class SemanticTasksMailer {
 			$link = $task_name->getFullURL();
 
 			foreach ( $assignees as $assignee_username ) {
-				$body = self::getMessage( 'semantictasks-reminder-body-1', $task_name, $wgLang->formatNum( $remind_me_in ), $link );
+				$body = self::getMessage( 'semantictasks-reminder-body-1', $task_name, $wgLang->formatNum( $remind_me_in ) );
+				$body .= "\n\n" . $link;
 				$assignee = User::newFromName( $assignee_username );
 				$assignee->sendMail( $subject, $body );
 			}
