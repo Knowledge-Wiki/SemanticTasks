@@ -2,12 +2,16 @@
 
 namespace ST;
 
+use CommentStoreComment;
+use ContentHandler;
 use MediaWiki\Content\TextContent;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
+use MWException;
+use User;
 use Wikimedia\ObjectCache\BagOStuff;
 use Wikimedia\ObjectCache\WANObjectCache;
 use Wikimedia\Rdbms\Database;
@@ -40,6 +44,104 @@ class SemanticTasksMessages {
 		$this->revLookup = $revLookup;
 		$this->srvCache = $srvCache;
 		$this->messagesArticle = $stgMessagesArticle;
+	}
+
+	/**
+	 * @see https://github.com/SemanticMediaWiki/KnowledgeGraph/blob/main/includes/KnowledgeGraph.php
+	 *
+	 * @return bool
+	 */
+	public static function ensureSemanticTasksMessagesExists() {
+		global $stgMessagesArticle;
+
+		if ( !$stgMessagesArticle ) {
+			return false;
+		}
+
+		$title = Title::newFromText( $stgMessagesArticle );
+		if ( !$title ) {
+			 throw new MWException( 'Title for SemanticTasksMessage not valid' );
+		}
+
+		if ( $title->isKnown() ) {
+			return true;
+		}
+
+		$structure = [
+			"New task" => [
+				"semantictasks-newtask-subject",
+				"semantictasks-newtask-body-1",
+				"semantictasks-newtask-body-2"
+			],
+			"Task updated" => [
+				"semantictasks-taskupdated-subject",
+				"semantictasks-taskupdated-body-1",
+				"semantictasks-taskupdated-body-2"
+			],
+			"Task closed" => [
+				"semantictasks-taskclosed-subject",
+				"semantictasks-taskclosed-body-1",
+				"semantictasks-taskclosed-body-2"
+			],
+			"Task unassigned" => [
+				"semantictasks-taskunassigned-subject",
+				"semantictasks-taskunassigned-body-1",
+				"semantictasks-taskunassigned-body-2"
+			],
+			"Talk page of Task created" => [
+				"semantictasks-talkpageoftaskcreated-subject",
+				"semantictasks-talkpageoftaskcreated-body-1"
+			],
+			"Talk page of Task edited" => [
+				"semantictasks-talkpageoftaskedited-subject",
+				"semantictasks-talkpageoftaskedited-body-1"
+			],
+			"Task deleted" => [
+				"semantictasks-taskdeleted-subject",
+				"semantictasks-taskdeleted-body-1"
+			],
+			"Talk page of task deleted" => [
+				"semantictasks-talkpageoftaskdeleted-subject",
+				"semantictasks-talkpageoftaskdeleted-body-1"
+			],
+			"Task assigned" => [
+				"semantictasks-taskassigned-subject",
+				"semantictasks-taskassigned-body-1",
+				"semantictasks-taskassigned-body-2"
+			],
+			"Reminder" => [
+				"semantictasks-reminder-subject",
+				"semantictasks-reminder-body-1"
+			]
+		];
+
+		$newContent = [ '__NOTOC__' ];
+		foreach ( $structure as $section => $value ) {
+			$newContent[] = '==' . $section . '==';
+			foreach ( $value as $msg ) {
+				$newContent[] = $msg . '|' . wfMessage( $msg )->plain();
+			}
+			$newContent[] = '';
+		}
+
+		$text = implode("\n", $newContent);
+
+		$content = ContentHandler::makeContent(
+			$text,
+			$title
+		);
+
+		$user = User::newSystemUser( 'MediaWiki default', [ 'steal' => true ] );
+
+		$wikiPage = MediaWikiServices::getInstance()
+			->getWikiPageFactory()->newFromTitle( $title );
+
+		$pageUpdater = $wikiPage->newPageUpdater( $user );
+		$pageUpdater->setContent( SlotRecord::MAIN, $content );
+		$pageUpdater->saveRevision(
+			CommentStoreComment::newUnsavedComment( 'Initialize KnowledgeGraphOptions' ),
+			EDIT_SUPPRESS_RC
+		);
 	}
 
 	/**
